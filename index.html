@@ -4,42 +4,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Soyewo Oluwasayofunmi | Portfolio</title>
-  <meta name="description" content="Frontend developer, writer, and virtual assistant. Portfolio of projects, writing, and professional experience." />
   <style>
     :root{
-      --bg:#0f172a; --bg-soft:#111827; --card:#1e293b; --text:#e5e7eb; --muted:#94a3b8;
+      --bg:#0f172a; --card:#1e293b; --text:#e5e7eb; --muted:#94a3b8;
       --brand:#38bdf8; --brand-2:#0ea5e9;
-      --shadow:0 8px 30px rgba(0,0,0,.25);
-      --radius:14px;
+      --shadow:0 8px 25px rgba(0,0,0,.25); --radius:14px;
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.6;scroll-behavior:smooth}
-    a{color:var(--brand);text-decoration:none}
-    a:hover{color:var(--brand-2)}
+    body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    a{text-decoration:none;color:var(--brand)} a:hover{color:var(--brand-2)}
+
     /* NAV */
-    nav{
-      position:fixed; inset-inline:0; top:0; z-index:50;
-      backdrop-filter:saturate(140%) blur(8px);
-      background:linear-gradient(0deg, rgba(15,23,42,.65), rgba(15,23,42,.65));
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
-    .nav-inner{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 18px}
-    .brand{font-weight:700;letter-spacing:.3px}
-    .menu{display:flex;gap:18px;flex-wrap:wrap}
-    .menu a{padding:6px 10px;border-radius:10px;color:var(--text)}
-    .menu a:hover{background:rgba(56,189,248,.12)}
+    nav{position:fixed;top:0;left:0;width:100%;background:rgba(15,23,42,.95);z-index:1000}
+    .nav-inner{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;padding:12px 18px}
+    .brand{font-weight:700;color:var(--brand)}
+    .menu{display:flex;gap:20px}
+    .menu a{color:var(--text)} .menu a:hover{color:var(--brand)}
+    .hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer}
+    .hamburger span{width:25px;height:3px;background:var(--text)}
+    /* Sidebar for small screens */
+    .sidebar{position:fixed;top:0;left:-260px;width:240px;height:100%;background:var(--card);padding:40px 20px;transition:.3s;z-index:1200}
+    .sidebar.active{left:0}
+    .sidebar a{display:block;margin:15px 0;color:var(--text)}
+    .close-btn{cursor:pointer;font-size:20px;margin-bottom:20px;display:block;color:var(--brand)}
+
     /* HERO */
-    header{min-height:88vh;display:grid;place-items:center;padding:120px 18px 40px}
-    .hero{max-width:920px;text-align:center}
-    .kicker{color:var(--brand);font-weight:600;letter-spacing:.4px}
-    h1{font-size:clamp(32px,5vw,54px);margin:.35em 0 .15em}
-    .sub{color:var(--muted);font-size:clamp(16px,2.4vw,20px)}
-    .typing{display:inline-block;min-width:14ch;border-right:2px solid var(--brand);white-space:nowrap;overflow:hidden}
-    /* SECTIONS */
-    section{padding:78px 18px}
-    .container{max-width:1200px;margin:auto}
-    h2{font-size:clamp(22px,3.2vw,30px);margin:0 0 22px;text-align:center;color:var(--brand)}
-    p.lead{max-width:900px;margin:0 auto 10px;color:var(--text)}
+    header{min-height:90vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding-top:80px}
+    header img{width:150px;height:150px;border-radius:50%;object-fit:cover;margin-bottom:20px;border:3px solid var(--brand)}
+    h1{font-size:clamp(28px,5vw,48px);margin:10px 0}
+    .titles{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:10px}
+    .title{opacity:0;transform:translateY(10px);padding:6px 12px;border-radius:20px;background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.35);color:#e0f2fe;font-size:14px}
+    .title.show{opacity:1;transform:translateY(0);transition:.6s ease}
+
+    section{padding:70px 18px;max-width:1100px;margin:auto}
+    h2{text-align:center;margin-bottom:25px;color:var(--brand)}
+
     /* SKILLS */
     .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:14px}
     .skill-card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
@@ -47,302 +45,179 @@
     .tag{background:rgba(56,189,248,.15);color:#e0f2fe;border:1px solid rgba(56,189,248,.35);padding:6px 10px;border-radius:999px;font-size:12px}
     .bar{height:8px;background:rgba(255,255,255,.08);border-radius:999px;margin-top:12px;overflow:hidden}
     .bar>span{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-2));width:0%}
+
     /* PROJECTS */
     .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
-    .card{
-      position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
-      background:var(--card);isolation:isolate;transform:translateZ(0);
-    }
+    .card{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:var(--card)}
     .card img{width:100%;height:200px;object-fit:cover;display:block;transition:transform .6s ease}
     .card:hover img{transform:scale(1.08)}
-    .overlay{
-      position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
-      padding:16px;background:linear-gradient(180deg,rgba(0,0,0,.0) 0%, rgba(0,0,0,.65) 55%, rgba(0,0,0,.78) 100%);
-      color:white;opacity:0;transition:opacity .35s ease;z-index:2
-    }
+    .overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:16px;background:rgba(0,0,0,.65);color:white;opacity:0;transition:.35s ease}
     .card:hover .overlay{opacity:1}
     .overlay h3{margin:6px 0 6px}
     .overlay p{margin:0 0 10px;color:#dbeafe;font-size:14px}
-    .btn{
-      display:inline-block;padding:10px 14px;border-radius:10px;background:var(--brand);color:#06202b;font-weight:600
-    }
+    .btn{display:inline-block;padding:8px 12px;border-radius:10px;background:var(--brand);color:#06202b;font-weight:600}
     .btn:hover{background:var(--brand-2);color:white}
-    /* WRITING & EXPERIENCE */
+
+    /* GRID SECTIONS */
     .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
     .exp-card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
     .exp-card strong{display:block;margin-bottom:6px}
     .muted{color:var(--muted);font-size:14px}
+
     /* CONTACT */
     .contact{display:grid;place-items:center;text-align:center}
-    .contact .links{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:10px}
-    .chip{padding:10px 14px;border-radius:999px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35)}
-    /* REVEAL ON SCROLL */
-    .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease}
-    .reveal.show{opacity:1;transform:none}
-    /* FOOTER */
-    footer{padding:34px 18px;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,.06)}
-    /* SMALL UTILITIES */
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-    @media (max-width:640px){.menu{gap:10px}}
+    .contact-icons{display:flex;gap:20px;margin-top:15px}
+    .contact-icons a{font-size:28px;color:var(--text);transition:.3s}
+    .contact-icons a:hover{color:var(--brand)}
+
+    footer{text-align:center;padding:20px;color:var(--muted);margin-top:40px}
+
+    @media(max-width:768px){.menu{display:none}.hamburger{display:flex}}
   </style>
+  <!-- FontAwesome for icons -->
+  <script src="https://kit.fontawesome.com/6dcf7d6c7a.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <!-- NAV -->
-  <nav aria-label="Primary">
+  <nav>
     <div class="nav-inner">
       <div class="brand">S. Oluwasayofunmi</div>
-      <div class="menu" role="menubar" aria-label="Sections">
-        <a role="menuitem" href="#about">About</a>
-        <a role="menuitem" href="#skills">Skills</a>
-        <a role="menuitem" href="#projects">Projects</a>
-        <a role="menuitem" href="#writing">Writing</a>
-        <a role="menuitem" href="#experience">Experience</a>
-        <a role="menuitem" href="#contact">Contact</a>
+      <div class="menu">
+        <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a>
+        <a href="#writing">Writing</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
       </div>
+      <div class="hamburger" onclick="toggleSidebar()"><span></span><span></span><span></span></div>
     </div>
   </nav>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <span class="close-btn" onclick="toggleSidebar()">✖ Close</span>
+    <a href="#about" onclick="toggleSidebar()">About</a>
+    <a href="#skills" onclick="toggleSidebar()">Skills</a>
+    <a href="#projects" onclick="toggleSidebar()">Projects</a>
+    <a href="#writing" onclick="toggleSidebar()">Writing</a>
+    <a href="#experience" onclick="toggleSidebar()">Experience</a>
+    <a href="#contact" onclick="toggleSidebar()">Contact</a>
+  </div>
 
   <!-- HERO -->
   <header>
-    <div class="hero reveal">
-      <div class="kicker">Hello, I’m</div>
-      <h1>Soyewo Oluwasayofunmi</h1>
-      <p class="sub">
-        <span class="typing" id="typing"></span>
-      </p>
-    </div>
+    <img src="images/profile.jpg" alt="Profile Picture">
+    <h1>Soyewo Oluwasayofunmi</h1>
+    <div class="titles" id="titles"></div>
   </header>
 
   <!-- ABOUT -->
   <section id="about">
-    <div class="container reveal">
-      <h2>About Me</h2>
-      <p class="lead">
-        I’m a creative <strong>frontend developer</strong>, <strong>writer</strong>, and <strong>virtual assistant</strong> with a knack for clean UI, clear copy, and organized delivery. I build with HTML, CSS, JavaScript, and React; craft SEO-friendly content; and manage social media campaigns end-to-end — from content and graphics to analytics and community.
-      </p>
-    </div>
+    <h2>About Me</h2>
+    <p>I’m a creative <strong>frontend developer</strong>, <strong>writer</strong>, and <strong>virtual assistant</strong>. I build with HTML, CSS, JavaScript, and React; craft SEO-friendly content; and manage social media campaigns end-to-end — from content and graphics to analytics and community.</p>
   </section>
 
   <!-- SKILLS -->
   <section id="skills">
-    <div class="container reveal">
-      <h2>Skills</h2>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <strong>Tech Stack</strong>
-          <div class="tags">
-            <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
-            <span class="tag">React</span><span class="tag">GitHub</span>
-          </div>
-          <div class="bar" aria-label="Frontend proficiency"><span style="width: 88%"></span></div>
-        </div>
-        <div class="skill-card">
-          <strong>Content & SEO</strong>
-          <div class="tags">
-            <span class="tag">Content Writing</span><span class="tag">Creative Writing</span><span class="tag">Technical Writing</span><span class="tag">SEO</span>
-          </div>
-          <div class="bar"><span style="width: 86%"></span></div>
-        </div>
-        <div class="skill-card">
-          <strong>Social Media & VA</strong>
-          <div class="tags">
-            <span class="tag">Graphic Design (Canva)</span><span class="tag">Scheduling</span><span class="tag">Analytics</span><span class="tag">Community</span>
-          </div>
-          <div class="bar"><span style="width: 84%"></span></div>
-        </div>
-        <div class="skill-card">
-          <strong>Tools</strong>
-          <div class="tags">
-            <span class="tag">Google Workspace</span><span class="tag">MS Excel</span><span class="tag">ChatGPT</span><span class="tag">Project Mgmt</span><span class="tag">Research</span>
-          </div>
-          <div class="bar"><span style="width: 82%"></span></div>
-        </div>
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card"><strong>Tech Stack</strong>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">GitHub</span></div>
+        <div class="bar"><span style="width: 88%"></span></div>
+      </div>
+      <div class="skill-card"><strong>Content & SEO</strong>
+        <div class="tags"><span class="tag">Content Writing</span><span class="tag">Creative Writing</span><span class="tag">Technical Writing</span><span class="tag">SEO</span></div>
+        <div class="bar"><span style="width: 86%"></span></div>
+      </div>
+      <div class="skill-card"><strong>Social Media & VA</strong>
+        <div class="tags"><span class="tag">Graphic Design</span><span class="tag">Scheduling</span><span class="tag">Analytics</span><span class="tag">Community</span></div>
+        <div class="bar"><span style="width: 84%"></span></div>
+      </div>
+      <div class="skill-card"><strong>Tools</strong>
+        <div class="tags"><span class="tag">Google Workspace</span><span class="tag">MS Excel</span><span class="tag">ChatGPT</span><span class="tag">Project Mgmt</span></div>
+        <div class="bar"><span style="width: 82%"></span></div>
       </div>
     </div>
   </section>
 
   <!-- PROJECTS -->
   <section id="projects">
-    <div class="container reveal">
-      <h2>Developer Projects</h2>
-      <div class="projects">
-        <!-- Replace image src paths with your real screenshots in /images -->
-        <article class="card">
-          <img src="images/task-tracker.png" alt="Screenshot of Task Tracker App" />
-          <div class="overlay">
-            <h3>Task Tracker App</h3>
-            <p>React app with add/delete tasks and reminders.</p>
-            <a class="btn" href="https://my-react-project-task-tracker.netlify.app/" target="_blank" rel="noopener">View Project</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="images/riqgallery.png" alt="Screenshot of RiqGallery" />
-          <div class="overlay">
-            <h3>RiqGallery</h3>
-            <p>Responsive React image gallery with smooth transitions.</p>
-            <a class="btn" href="https://riqgallery.netlify.app/" target="_blank" rel="noopener">View Project</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="images/cara-stores.png" alt="Screenshot of Cara Stores" />
-          <div class="overlay">
-            <h3>Cara Stores</h3>
-            <p>E-commerce UI with responsive layouts and cart flow.</p>
-            <a class="btn" href="https://carastoresng.netlify.app/" target="_blank" rel="noopener">View Project</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="images/monster-corp.png" alt="Screenshot of Monster Corp" />
-          <div class="overlay">
-            <h3>Monster Corp</h3>
-            <p>Fun monster generator using JavaScript.</p>
-            <a class="btn" href="https://mymonstercorp.netlify.app/" target="_blank" rel="noopener">View Project</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="images/expense-manager.png" alt="Screenshot of Expense Manager" />
-          <div class="overlay">
-            <h3>Expense Manager</h3>
-            <p>Track expenses and budgets in a simple React tool.</p>
-            <a class="btn" href="https://expensemanager03.netlify.app/" target="_blank" rel="noopener">View Project</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="images/boibsc.png" alt="Screenshot of BoiBSC web3 landing page" />
-          <div class="overlay">
-            <h3>BoiBSC (Web3)</h3>
-            <p>Modern web3 landing page UI/UX.</p>
-            <a class="btn" href="https://boibsc.netlify.app/" target="_blank" rel="noopener">View Project</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="images/rizz-ai.png" alt="Screenshot of Rizz AI landing page" />
-          <div class="overlay">
-            <h3>Rizz AI (Web3)</h3>
-            <p>AI product landing with sleek animations.</p>
-            <a class="btn" href="https://rizz-ai.xyz/" target="_blank" rel="noopener">View Project</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="images/lily-ai.png" alt="Screenshot of Lily AI landing page" />
-          <div class="overlay">
-            <h3>Lily AI (Web3)</h3>
-            <p>Landing with subtle transitions and effects.</p>
-            <a class="btn" href="https://lily-ai.netlify.app/" target="_blank" rel="noopener">View Project</a>
-          </div>
-        </article>
-      </div>
+    <h2>Developer Projects</h2>
+    <div class="projects">
+      <!-- Replace images with your screenshots -->
+      <article class="card"><img src="images/task-tracker.png"><div class="overlay"><h3>Task Tracker App</h3><p>React app with tasks and reminders.</p><a class="btn" href="https://my-react-project-task-tracker.netlify.app/" target="_blank">View Project</a></div></article>
+      <article class="card"><img src="images/riqgallery.png"><div class="overlay"><h3>RiqGallery</h3><p>React gallery with smooth transitions.</p><a class="btn" href="https://riqgallery.netlify.app/" target="_blank">View Project</a></div></article>
+      <article class="card"><img src="images/cara-stores.png"><div class="overlay"><h3>Cara Stores</h3><p>E-commerce store UI.</p><a class="btn" href="https://carastoresng.netlify.app/" target="_blank">View Project</a></div></article>
+      <article class="card"><img src="images/monster-corp.png"><div class="overlay"><h3>Monster Corp</h3><p>Monster generator with JS.</p><a class="btn" href="https://mymonstercorp.netlify.app/" target="_blank">View Project</a></div></article>
+      <article class="card"><img src="images/expense-manager.png"><div class="overlay"><h3>Expense Manager</h3><p>Budget & expenses tracker.</p><a class="btn" href="https://expensemanager03.netlify.app/" target="_blank">View Project</a></div></article>
+      <article class="card"><img src="images/boibsc.png"><div class="overlay"><h3>BoiBSC</h3><p>Web3 landing page.</p><a class="btn" href="https://boibsc.netlify.app/" target="_blank">View Project</a></div></article>
+      <article class="card"><img src="images/rizz-ai.png"><div class="overlay"><h3>Rizz AI</h3><p>AI web3 landing page.</p><a class="btn" href="https://rizz-ai.xyz/" target="_blank">View Project</a></div></article>
+      <article class="card"><img src="images/lily-ai.png"><div class="overlay"><h3>Lily AI</h3><p>Landing with transitions.</p><a class="btn" href="https://lily-ai.netlify.app/" target="_blank">View Project</a></div></article>
     </div>
   </section>
 
   <!-- WRITING -->
   <section id="writing">
-    <div class="container reveal">
-      <h2>Writing Portfolio</h2>
-      <div class="grid">
-        <div class="exp-card">
-          <strong>Article</strong>
-          <p class="muted">Long-form web content / essay</p>
-          <a href="https://docs.google.com/document/d/1cfUq493EOl5HiAlz1bl8I9HUqVkbULjcV6urFHMwTow/edit?usp=drivesdk" target="_blank" rel="noopener">Read on Google Docs</a>
-        </div>
-        <div class="exp-card">
-          <strong>Poetry Collection</strong>
-          <p class="muted">Creative writing & verse</p>
-          <a href="https://docs.google.com/document/d/1U298muCzbNP4ydkvNNuJJM2MvY81VWozDYAhUvyxGzw/edit?usp=drivesdk" target="_blank" rel="noopener">Read on Google Docs</a>
-        </div>
-      </div>
+    <h2>Writing Portfolio</h2>
+    <div class="grid">
+      <div class="exp-card"><strong>Article</strong><p class="muted">Long-form web content</p><a href="https://docs.google.com/document/d/1cfUq493EOl5HiAlz1bl8I9HUqVkbULjcV6urFHMwTow/edit?usp=drivesdk" target="_blank">Read</a></div>
+      <div class="exp-card"><strong>Poetry Collection</strong><p class="muted">Creative writing</p><a href="https://docs.google.com/document/d/1U298muCzbNP4ydkvNNuJJM2MvY81VWozDYAhUvyxGzw/edit?usp=drivesdk" target="_blank">Read</a></div>
     </div>
   </section>
 
-  <!-- EXPERIENCE (from resume, expanded with content & graphics) -->
+  <!-- EXPERIENCE -->
   <section id="experience">
-    <div class="container reveal">
-      <h2>Professional Experience</h2>
-      <div class="grid">
-        <div class="exp-card">
-          <strong>Social Media Manager — <a href="https://www.fafoods.com.au" target="_blank" rel="noopener">FA Foods</a> (2024)</strong>
-          <p>Content creation, <b>graphic design</b> (Canva), scheduling, and community management. Owned social media strategy, analytics reports, competitor analysis, campaign management, and website management — ensuring consistent brand voice.</p>
-        </div>
-        <div class="exp-card">
-          <strong>Virtual Assistant / Social Media Manager — X Dev Studios (Remote, 2025)</strong>
-          <p>Supported a senior frontend developer with <b>content writing</b>, social media strategy, analytics, and admin tasks. Helped plan campaigns and visual assets to strengthen online presence.</p>
-        </div>
-        <div class="exp-card">
-          <strong>Content Writer & Social Media — Mintworx (Contract, 2025)</strong>
-          <p>Produced articles and marketing copy, designed visuals, scheduled posts, and ran analytics-driven campaigns with clear reporting and on-time delivery.</p>
-        </div>
-        <div class="exp-card">
-          <strong>Frontend Developer Trainee — Nubiaville Limited (SIWES, 2023–2024)</strong>
-          <p>Built and designed websites with content integration, created SEO write-ups, and managed a project — gaining practical experience in project management and collaboration.</p>
-        </div>
-        <div class="exp-card">
-          <strong>Intern — Dataguard Document Managing Ltd (2023)</strong>
-          <p>Proofread, indexed, and edited important documents. Handled data entry, scanning, and editing while meeting deadlines under pressure.</p>
-        </div>
-      </div>
+    <h2>Professional Experience</h2>
+    <div class="grid">
+      <div class="exp-card"><strong>Social Media Manager — FA Foods (2024)</strong><p>Content creation, graphic design (Canva), scheduling, strategy, analytics, competitor analysis, campaign management, and website management.</p></div>
+      <div class="exp-card"><strong>Virtual Assistant — X Dev Studios (2025)</strong><p>Supported senior frontend developer with content writing, social media, analytics, and admin tasks. Assisted in campaigns and visual content.</p></div>
+      <div class="exp-card"><strong>Content Writer & Social Media — Mintworx (2025)</strong><p>Produced articles and marketing copy, created visuals, scheduled posts, and ran analytics-driven campaigns.</p></div>
+      <div class="exp-card"><strong>Frontend Developer Trainee — Nubiaville (2023–2024)</strong><p>Built and designed websites with content integration, created SEO writeups, and managed projects.</p></div>
+      <div class="exp-card"><strong>Intern — Dataguard (2023)</strong><p>Proofread, indexed, and edited documents. Handled data entry, scanning, and editing under deadlines.</p></div>
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact">
-    <div class="container contact reveal">
-      <h2>Contact</h2>
-      <p class="lead">Let’s build something great together.</p>
-      <div class="links">
-        <a class="chip" href="mailto:femijohnson2003@gmail.com">📧 femijohnson2003@gmail.com</a>
-        <a class="chip" href="https://www.linkedin.com/in/oluwasayofunmi-soyewo" target="_blank" rel="noopener">in/oluwasayofunmi-soyewo</a>
-        <a class="chip" href="https://github.com/Asteriqq" target="_blank" rel="noopener">GitHub: Asteriqq</a>
-        <a class="chip" href="https://www.instagram.com/fa.foods.au" target="_blank" rel="noopener">IG: @fa.foods.au</a>
-      </div>
+    <h2>Contact</h2>
+    <p>Email me or connect via my profiles:</p>
+    <div class="contact-icons">
+      <a href="mailto:femijohnson2003@gmail.com"><i class="fas fa-envelope"></i></a>
+      <a href="https://www.linkedin.com/in/oluwasayofunmi-soyewo" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/Asteriqq" target="_blank"><i class="fab fa-github"></i></a>
     </div>
   </section>
 
-  <footer>
-    © 2025 Soyewo Oluwasayofunmi. All rights reserved.
-  </footer>
+  <footer>© 2025 Soyewo Oluwasayofunmi</footer>
 
   <script>
-    /* Typing animation */
-    const texts = ["Frontend Developer", "Writer", "Virtual Assistant", "Social Media Manager"];
-    let tIndex = 0, lIndex = 0, typingEl = document.getElementById("typing");
-    function typeLoop(){
-      const word = texts[tIndex];
-      typingEl.textContent = word.slice(0, ++lIndex);
-      if(lIndex === word.length){ setTimeout(()=>{ lIndex = 0; tIndex = (tIndex+1)%texts.length; typeLoop(); }, 1400); }
-      else { setTimeout(typeLoop, 85); }
+    // Sidebar toggle
+    function toggleSidebar(){ document.getElementById("sidebar").classList.toggle("active"); }
+
+    // Job titles animation (all stay visible)
+    const jobTitles = ["Frontend Developer","Writer","Virtual Assistant","Social Media Manager"];
+    const titlesContainer = document.getElementById("titles");
+    let i=0;
+    function showTitles(){
+      if(i < jobTitles.length){
+        let span = document.createElement("span");
+        span.classList.add("title");
+        span.textContent = jobTitles[i];
+        titlesContainer.appendChild(span);
+        setTimeout(()=>span.classList.add("show"),100);
+        i++;
+        setTimeout(showTitles, 1000);
+      }
     }
-    typeLoop();
+    showTitles();
 
-    /* Reveal on scroll */
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
-      });
-    }, {threshold:.14});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-    /* Animate skill bars */
+    // Animate skill bars
     const bars = document.querySelectorAll('.bar > span');
-    const barIO = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          const el = e.target;
-          const target = el.getAttribute('style').match(/width:\s*([0-9]+)%/);
-          const end = target ? +target[1] : 80;
-          el.style.width = '0%';
-          let w=0; const id=setInterval(()=>{ w+=2; el.style.width = w+'%'; if(w>=end){ clearInterval(id); } }, 16);
-          barIO.unobserve(el);
+    window.addEventListener('scroll', ()=>{
+      bars.forEach(bar=>{
+        const rect = bar.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 50){
+          const width = bar.getAttribute('style').match(/width:\s*([0-9]+)%/)[1];
+          bar.style.width = width+'%';
         }
       });
-    }, {threshold:.5});
-    bars.forEach(b=>barIO.observe(b));
+    });
   </script>
 </body>
 </html>

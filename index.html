@@ -131,6 +131,65 @@
     <p>I’m a creative <strong>frontend developer</strong>, <strong>writer</strong>, and <strong>virtual assistant</strong>. I build with HTML, CSS, JavaScript, and React; craft SEO-friendly content; and manage social media campaigns end-to-end — from content and graphics to analytics and community.</p>
   </section>
 
+  <!-- SKILLS -->
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card"><strong>Tech Stack</strong>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">GitHub</span></div>
+        <div class="bar"><span style="width: 88%"></span></div>
+      </div>
+      <div class="skill-card"><strong>Content & SEO</strong>
+        <div class="tags"><span class="tag">Content Writing</span><span class="tag">Creative Writing</span><span class="tag">Technical Writing</span><span class="tag">SEO</span></div>
+        <div class="bar"><span style="width: 86%"></span></div>
+      </div>
+      <div class="skill-card"><strong>Social Media & VA</strong>
+        <div class="tags"><span class="tag">Graphic Design</span><span class="tag">Scheduling</span><span class="tag">Analytics</span><span class="tag">Community</span></div>
+        <div class="bar"><span style="width: 84%"></span></div>
+      </div>
+      <div class="skill-card"><strong>Tools</strong>
+        <div class="tags"><span class="tag">Google Workspace</span><span class="tag">MS Excel</span><span class="tag">ChatGPT</span><span class="tag">Project Mgmt</span></div>
+        <div class="bar"><span style="width: 82%"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2>Developer Projects</h2>
+    <div class="projects">
+      <article class="card"><img src="images/task-tracker.png"><div class="overlay"><h3>Task Tracker App</h3><p>React app with tasks and reminders.</p><a class="btn" href="https://my-react-project-task-tracker.netlify.app/" target="_blank">View Project</a></div></article>
+      <article class="card"><img src="images/riqgallery.png"><div class="overlay"><h3>RiqGallery</h3><p>React gallery with smooth transitions.</p><a class="btn" href="https://riqgallery.netlify.app/" target="_blank">View Project</a></div></article>
+      <article class="card"><img src="images/cara-stores.png"><div class="overlay"><h3>Cara Stores</h3><p>E-commerce store UI.</p><a class="btn" href="https://carastoresng.netlify.app/" target="_blank">View Project</a></div></article>
+      <article class="card"><img src="images/monster-corp.png"><div class="overlay"><h3>Monster Corp</h3><p>Monster generator with JS.</p><a class="btn" href="https://mymonstercorp.netlify.app/" target="_blank">View Project</a></div></article>
+      <article class="card"><img src="images/expense-manager.png"><div class="overlay"><h3>Expense Manager</h3><p>Budget & expenses tracker.</p><a class="btn" href="https://expensemanager03.netlify.app/" target="_blank">View Project</a></div></article>
+      <article class="card"><img src="images/boibsc.png"><div class="overlay"><h3>BoiBSC</h3><p>Web3 landing page.</p><a class="btn" href="https://boibsc.netlify.app/" target="_blank">View Project</a></div></article>
+      <article class="card"><img src="images/rizz-ai.png"><div class="overlay"><h3>Rizz AI</h3><p>AI web3 landing page.</p><a class="btn" href="https://rizz-ai.xyz/" target="_blank">View Project</a></div></article>
+      <article class="card"><img src="images/lily-ai.png"><div class="overlay"><h3>Lily AI</h3><p>Landing with transitions.</p><a class="btn" href="https://lily-ai.netlify.app/" target="_blank">View Project</a></div></article>
+    </div>
+  </section>
+
+  <!-- WRITING -->
+  <section id="writing">
+    <h2>Writing Portfolio</h2>
+    <div class="grid">
+      <div class="exp-card"><strong>Article</strong><p class="muted">Long-form web content</p><a href="https://docs.google.com/document/d/1cfUq493EOl5HiAlz1bl8I9HUqVkbULjcV6urFHMwTow/edit?usp=drivesdk" target="_blank">Read</a></div>
+      <div class="exp-card"><strong>Poetry Collection</strong><p class="muted">Creative writing</p><a href="https://docs.google.com/document/d/1U298muCzbNP4ydkvNNuJJM2MvY81VWozDYAhUvyxGzw/edit?usp=drivesdk" target="_blank">Read</a></div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <h2>Professional Experience</h2>
+    <div class="grid">
+      <div class="exp-card"><strong>Social Media Manager — FA Foods (2024)</strong><p>Content creation, graphic design (Canva), scheduling, strategy, analytics, competitor analysis, campaign management, and website management.</p></div>
+      <div class="exp-card"><strong>Virtual Assistant — X Dev Studios (2025)</strong><p>Supported senior frontend developer with content writing, social media, analytics, and admin tasks. Assisted in campaigns and visual content.</p></div>
+      <div class="exp-card"><strong>Content Writer & Social Media — Mintworx (2025)</strong><p>Produced articles and marketing copy, created visuals, scheduled posts, and ran analytics-driven campaigns.</p></div>
+      <div class="exp-card"><strong>Frontend Developer Trainee — Nubiaville (2023–2024)</strong><p>Built and designed websites with content integration, created SEO writeups, and managed projects.</p></div>
+      <div class="exp-card"><strong>Intern — Dataguard (2023)</strong><p>Proofread, indexed, and edited documents. Handled data entry, scanning, and editing under deadlines.</p></div>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
     <h2>Contact</h2>
@@ -175,6 +234,18 @@
       }
     }
     showTitles();
+
+    // Animate skill bars
+    const bars = document.querySelectorAll('.bar > span');
+    window.addEventListener('scroll', ()=>{
+      bars.forEach(bar=>{
+        const rect = bar.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 50){
+          const width = bar.getAttribute('style').match(/width:\s*([0-9]+)%/)[1];
+          bar.style.width = width+'%';
+        }
+      });
+    });
   </script>
 </body>
 </html>
